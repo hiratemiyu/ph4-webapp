@@ -101,268 +101,268 @@
                             <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="時間" required="">
                           </div>                         
                           {{-- Twitter用コメント --}}
-                          <div class="col-span-2">
-                              <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Twitter用コメント</label>
-                              <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write product description here"></textarea>                    
-                          </div>
-                      </div>
-                      <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                          <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                                                    記録する
-                                                            </button>
-                                                    </form>
-                                            </div>
+                        <div class="col-span-2">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Twitter用コメント</label>
+                            <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write product description here"></textarea>                    
+                        </div>
+                    </div>
+                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            記録する
+                    </button>
+                                    </form>
+                            </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="hours_container">
+                <div class="hours">
+                    <ul id="today_hours">
+                        <li class="hours_title" id="today_title" name="today"></li>
+                        <li class="hours_count"><?php echo $today_sum;?></li>
+                        <li class="hours_hour">hour</li>
+                    </ul>
+                    <ul class="month_hours">
+                        <li class="hours_title" id="month_title"><?php echo $this_month?>の合計</li>
+                        <li class="hours_count"><?php echo $month_sum;?></li>
+                        <li class="hours_hour">hour</li>
+                    </ul>
+                    <ul class="total_hours">
+                        <li class="hours_title">総計</li>
+                        <li class="hours_count"><?php echo $total_sum;?></li>
+                        <li class="hours_hour">hour</li>
+                    </ul>
+                </div>
+                <div class="canvas_container" id="hours_chart"></div>
+                <script>
+                    var options = {
+                        series: [{
+                            name: 'hour',
+                            data: hoursData      
+                            }],
+                        chart: {
+                            type: 'bar',
+                            height: 420,
+                            toolbar: {
+                                show: false
+                            },
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '50%',
+                                borderRadius: 5,
+                                endingShape: 'rounded'
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        xaxis: {
+                            axisTicks: {
+                                show: false //x軸の値区切り.-.
+                            },
+                            axisBorder: {
+                                show: false
+                            },
+
+                            labels: {
+                                formatter: function(value) {
+                                    if (value !== undefined) {
+                                        const categories = value.split(" ")
+                                        const day = categories[0]
+                                        return day % 2 == 1 ? "" : value;
+                                    }
+                                },
+                                style: {
+                                    colors: '#6ba0f0'
+                                },
+                            },
+                        },
+
+                        grid: {
+                            yaxis: {
+                                lines: {
+                                    show: false
+                                },
+                            },
+                        },
+
+                        yaxis: {
+                            labels: {
+                                formatter: function(value) {
+                                    return value + "h";
+                                },
+                                style: {
+                                    colors: '#6ba0f0',
+                                }
+                            },
+                            type: 'category',
+                            axisTicks: {
+                                show: false,
+                                width: 1,
+                            }
+                        },
+
+                        labels: ['1', '02', '3', '04', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+
+                        fill: {
+                            colors: ["#1174BD"],
+                            type: 'gradient',
+                            gradient: {
+                                type: 'vertical', //上垂直にグラデーション 
+                                gradientToColors: ['#3BCFFF'],
+                            }
+                        },
+
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                xaxis: {
+                                    labels: {
+                                        offsetY: -7,
+                                        style: {
+                                            fontSize: '7.5px',
+                                        }
+                                    }
+                                },
+                                chart: {
+                                    height: 200,
+                                }
+                            },
+                        }]
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#hours_chart"), options);
+                    chart.render();
+                </script>
+            </div>
+            <div class="learning">
+                <div class="learning_character">
+                    <p class="learning_title">学習言語</p>
+                    <div class="character_chart">
+                        <div class="learning_chart" id="chart1">
+                        <script>
+                            console.log(hours);
+                            var options = {
+                                series: hours,
+                                chart: {
+                                width: 300,
+                                type: 'pie',
+                            },
+                            labels: labels,
+                            legend: {
+                                position: 'bottom' // ここでラベルの位置を下に設定
+                            },
+                            responsive: [{
+                                breakpoint: 480,
+                                options: {
+                                    chart: {
+                                        width: 200
+                                    },
+                                    legend: {
+                                        position: 'bottom'
+                                    }
+                                }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart1"), options);
+                            chart.render();
+                        </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning_content">
+                    <p class="learning_title">学習コンテンツ</p>
+                    <div class="canvas_container" id="content_chart">
+                        <script>
+                        var options = {
+                            series: content_hours,
+                            chart: {
+                            width: 350,
+                            type: 'pie',
+                        },
+                        labels:content_labels,
+                        legend: {
+                                position: 'bottom' // ここでラベルの位置を下に設定
+                            },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                chart: {
+                                    width: 200
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }]
+                        };
+                        var chart = new ApexCharts(document.querySelector("#content_chart"), options);
+                        chart.render();
+                    </script>
+                </div>
+                </div>
+            </div>
+            v>
+
+             class="date">
+            <div class="arrow arrow-left"></div>
+            <div id="date_detail"><?php echo $this_month;?></div>
+            <div class="arrow arrow-right"></div>
+            v>
+             class="footer_record">
+            <button id="footer_record_button">記録・投稿</button>
+            v>
+             class="modal">
+            <form action="" method="post" id="form_record">
+                <div class="modal_content">
+                    <button class="modal_close"><span class="batsu"></span></button>
+                    <div class="modal_detail">
+                        <div class="modal_detail_left">
+                            <div class="modal_learning_day">
+                                <div class="modal_learning_day_detail">
+                                    <p class="learning_day_title" >学習日</p>
+                                    <input type="date" name="learning_day_detail" class="learning_day_text">
+                                <button id="learning_day_detail" placeholder="2022年10月23日"> 
+                                </div>
+                            </div>
+                            <div class="modal_learning_content">
+                                <p class="learning_content_title">学習コンテンツ （複数選択可）</p>
+                                <div class="modal_learning_content_detail">
+                                    <div class="modal_N">
+                                        <input type="checkbox"  name=""><label for="N_cramSchool" class="N_cramSchool">N予備校</label>
                                     </div>
-                                </div> 
-                            </div>
-                            <div class="hours_container">
-                                <div class="hours">
-                                    <ul id="today_hours">
-                                        <li class="hours_title" id="today_title" name="today"></li>
-                                        <li class="hours_count"><?php echo $today_sum;?></li>
-                                        <li class="hours_hour">hour</li>
-                                    </ul>
-                                    <ul class="month_hours">
-                                        <li class="hours_title" id="month_title"><?php echo $this_month?>の合計</li>
-                                        <li class="hours_count"><?php echo $month_sum;?></li>
-                                        <li class="hours_hour">hour</li>
-                                    </ul>
-                                    <ul class="total_hours">
-                                        <li class="hours_title">総計</li>
-                                        <li class="hours_count"><?php echo $total_sum;?></li>
-                                        <li class="hours_hour">hour</li>
-                                    </ul>
-                                </div>
-                                <div class="canvas_container" id="hours_chart"></div>
-                                <script>
-                                    var options = {
-                                        series: [{
-                                            name: 'hour',
-                                            data: hoursData      
-                                            }],
-                                        chart: {
-                                            type: 'bar',
-                                            height: 420,
-                                            toolbar: {
-                                                show: false
-                                            },
-                                        },
-                                        plotOptions: {
-                                            bar: {
-                                                horizontal: false,
-                                                columnWidth: '50%',
-                                                borderRadius: 5,
-                                                endingShape: 'rounded'
-                                            },
-                                        },
-                                        dataLabels: {
-                                            enabled: false
-                                        },
-                                        xaxis: {
-                                            axisTicks: {
-                                                show: false //x軸の値区切り.-.
-                                            },
-                                            axisBorder: {
-                                                show: false
-                                            },
-
-                                            labels: {
-                                                formatter: function(value) {
-                                                    if (value !== undefined) {
-                                                        const categories = value.split(" ")
-                                                        const day = categories[0]
-                                                        return day % 2 == 1 ? "" : value;
-                                                    }
-                                                },
-                                                style: {
-                                                    colors: '#6ba0f0'
-                                                },
-                                            },
-                                        },
-
-                                        grid: {
-                                            yaxis: {
-                                                lines: {
-                                                    show: false
-                                                },
-                                            },
-                                        },
-
-                                        yaxis: {
-                                            labels: {
-                                                formatter: function(value) {
-                                                    return value + "h";
-                                                },
-                                                style: {
-                                                    colors: '#6ba0f0',
-                                                }
-                                            },
-                                            type: 'category',
-                                            axisTicks: {
-                                                show: false,
-                                                width: 1,
-                                            }
-                                        },
-
-                                        labels: ['1', '02', '3', '04', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
-
-                                        fill: {
-                                            colors: ["#1174BD"],
-                                            type: 'gradient',
-                                            gradient: {
-                                                type: 'vertical', //上垂直にグラデーション 
-                                                gradientToColors: ['#3BCFFF'],
-                                            }
-                                        },
-
-                                        responsive: [{
-                                            breakpoint: 480,
-                                            options: {
-                                                xaxis: {
-                                                    labels: {
-                                                        offsetY: -7,
-                                                        style: {
-                                                            fontSize: '7.5px',
-                                                        }
-                                                    }
-                                                },
-                                                chart: {
-                                                    height: 200,
-                                                }
-                                            },
-                                        }]
-                                    };
-
-                                    var chart = new ApexCharts(document.querySelector("#hours_chart"), options);
-                                    chart.render();
-                                </script>
-                            </div>
-                            <div class="learning">
-                                <div class="learning_character">
-                                    <p class="learning_title">学習言語</p>
-                                    <div class="character_chart">
-                                        <div class="learning_chart" id="chart1">
-                                        <script>
-                                            console.log(hours);
-                                            var options = {
-                                                series: hours,
-                                                chart: {
-                                                width: 300,
-                                                type: 'pie',
-                                            },
-                                            labels: labels,
-                                            legend: {
-                                                position: 'bottom' // ここでラベルの位置を下に設定
-                                            },
-                                            responsive: [{
-                                                breakpoint: 480,
-                                                options: {
-                                                    chart: {
-                                                        width: 200
-                                                    },
-                                                    legend: {
-                                                        position: 'bottom'
-                                                    }
-                                                }
-                                            }]
-                                            };
-                                            var chart = new ApexCharts(document.querySelector("#chart1"), options);
-                                            chart.render();
-                                        </script>
-                                        </div>
+                                    <div class="modal_dot">
+                                        <input type="checkbox"  name=""><label for="dotinstall" class="dotinstall">ドットインストール</label>
+                                    </div>
+                                    <div class="modal_Posse">
+                                        <input type="checkbox"  name=""><label for="posse"class="posse">POSSE課題</label>
                                     </div>
                                 </div>
-
-                                <div class="learning_content">
-                                    <p class="learning_title">学習コンテンツ</p>
-                                    <div class="canvas_container" id="content_chart">
-                                        <script>
-                                        var options = {
-                                            series: content_hours,
-                                            chart: {
-                                            width: 350,
-                                            type: 'pie',
-                                        },
-                                        labels:content_labels,
-                                        legend: {
-                                                position: 'bottom' // ここでラベルの位置を下に設定
-                                            },
-                                        responsive: [{
-                                            breakpoint: 480,
-                                            options: {
-                                                chart: {
-                                                    width: 200
-                                                },
-                                                legend: {
-                                                    position: 'bottom'
-                                                }
-                                            }
-                                        }]
-                                        };
-                                        var chart = new ApexCharts(document.querySelector("#content_chart"), options);
-                                        chart.render();
-                                    </script>
-                                </div>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="date">
-                            <div class="arrow arrow-left"></div>
-                            <div id="date_detail"><?php echo $this_month;?></div>
-                            <div class="arrow arrow-right"></div>
-                        </div>
-                        <div class="footer_record">
-                            <button id="footer_record_button">記録・投稿</button>
-                        </div>
-                        <div class="modal">
-                            <form action="" method="post" id="form_record">
-                                <div class="modal_content">
-                                    <button class="modal_close"><span class="batsu"></span></button>
-                                    <div class="modal_detail">
-                                        <div class="modal_detail_left">
-                                            <div class="modal_learning_day">
-                                                <div class="modal_learning_day_detail">
-                                                    <p class="learning_day_title" >学習日</p>
-                                                    <input type="date" name="learning_day_detail" class="learning_day_text">
-                                                <button id="learning_day_detail" placeholder="2022年10月23日"> 
-                                                </div>
-                                            </div>
-                                            <div class="modal_learning_content">
-                                                <p class="learning_content_title">学習コンテンツ （複数選択可）</p>
-                                                <div class="modal_learning_content_detail">
-                                                    <div class="modal_N">
-                                                        <input type="checkbox"  name=""><label for="N_cramSchool" class="N_cramSchool">N予備校</label>
-                                                    </div>
-                                                    <div class="modal_dot">
-                                                        <input type="checkbox"  name=""><label for="dotinstall" class="dotinstall">ドットインストール</label>
-                                                    </div>
-                                                    <div class="modal_Posse">
-                                                        <input type="checkbox"  name=""><label for="posse"class="posse">POSSE課題</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal_learning_language">
-                                                <p class="learning_language_title">学習言語（複数選択可）</p>
-                                                <div class="learning_language_content">
-                                                    <div class="modal_html">
-                                                        <input type="checkbox"  name=""><label for="html"class="html">HTML</label>
-                                                    </div>
-                                                    <div class="modal_css">
-                                                        <input type="checkbox"  name=""><label for="css"class="css">CSS</label>
-                                                    </div>
-                                                    <div class="modal_js">
-                                                        <input type="checkbox"  name=""><label for="js"class="js">JavaScript</label>
-                                                    </div>
-                                                    <div class="modal_php">
-                                                        <input type="checkbox"  name=""><label for="php"class="php">PHP</label>
-                                                    </div>
-                                                    <div class="modal_laravel">
-                                                        <input type="checkbox" name=""><label for="laravel"class="laravel">Laravel</label>
-                                                    </div>
-                                                    <div class="modal_sql">
-                                                        <input type="checkbox" name=""><label for="sql"class="sql">SQL</label>
-                                                    </div>
+                            <div class="modal_learning_language">
+                                <p class="learning_language_title">学習言語（複数選択可）</p>
+                                <div class="learning_language_content">
+                                    <div class="modal_html">
+                                        <input type="checkbox"  name=""><label for="html"class="html">HTML</label>
+                                    </div>
+                                    <div class="modal_css">
+                                        <input type="checkbox"  name=""><label for="css"class="css">CSS</label>
+                                    </div>
+                                    <div class="modal_js">
+                                        <input type="checkbox"  name=""><label for="js"class="js">JavaScript</label>
+                                    </div>
+                                    <div class="modal_php">
+                                        <input type="checkbox"  name=""><label for="php"class="php">PHP</label>
+                                    </div>
+                                    <div class="modal_laravel">
+                                        <input type="checkbox" name=""><label for="laravel"class="laravel">Laravel</label>
+                                    </div>
+                                    <div class="modal_sql">
+                                        <input type="checkbox" name=""><label for="sql"class="sql">SQL</label>
+                                    </div>
                                                     <div class="modal_shell">
                     <input type="checkbox"  name=""><label for="shell"class="shell">SHELL</label>
                   </div>
