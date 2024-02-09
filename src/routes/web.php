@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebappController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +30,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // ログイン後のホーム画面
-Route::get('/webapp', function () {
-    return view('webapp'); // webapp.blade.php ビューを表示
-})->name('webapp')->middleware('auth');
+// ログイン後のホーム画面
+Route::get('/webapp', [WebappController::class, 'index'])->name('webapp')->middleware('auth');
+Route::post('/webapp/store', [WebappController::class, 'store'])->name('webapp.store');
 
 require __DIR__.'/auth.php';
